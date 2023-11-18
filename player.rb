@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Player
+  attr_accessor :codebreaker
+
   def initialize
     @codebreaker = false
   end
