@@ -46,6 +46,27 @@ class Game
     puts "You lose, the code was: #{combination.join}".colorize(:background => :red)
   end
 
+  # def player_code_maker
+  #   puts 'Please input a code for the computer to guess (4 numbers between 1-6)'
+  #   combination = gets.chomp until guess.length == 4 && guess !~ /\D/ && guess.split('').all? { |number| number.to_i.between?(1,6) }
+  #   pegs = board.hash_of_pegs
+  #   board.create_combination(combination)
+  #   puts "You have created a code for the computer (#{combination}), the computer will now play"
+  #   12.times do
+  #     guess = ''
+  #     puts "You guessed the code correctly!!! (#{combination})".colorize(:background => :green); return if guess == combination
+  #     clues = board.get_clues(guess.to_i)
+  #     guess_arr = guess.split('')
+  #     puts " #{" #{guess_arr[0]} ".colorize(mode: :bold,
+  #                                           background: pegs.key(guess_arr[0].to_i))} #{" #{guess_arr[1]} ".colorize(mode: :bold,
+  #                                                                                                                    background: pegs.key(guess_arr[1].to_i))} #{" #{guess_arr[2]} ".colorize(mode: :bold,
+  #                                                                                                                                                                                             background: pegs.key(guess_arr[2].to_i))} #{" #{guess_arr[3]} ".colorize(mode: :bold,
+  #                                                                                                                                                                                                                                                                      background: pegs.key(guess_arr[3].to_i))}\n\n"
+  #     puts "Clues: #{'X' * clues[0]}#{'O' * clues[1]}\n\n"
+  #   end
+  #   puts "The computer loses, the code was: #{combination}".colorize(:background => :red)
+  # end
+
   def start_game
     human_player = Human_player.new
     computer_player = Computer_player.new
@@ -62,8 +83,22 @@ class Game
         puts 'Please select either 1 or 2'
       end
     end
-    result = computer_code_maker if human_player.codebreaker == true
+    computer_code_maker if human_player.codebreaker == true
+    puts "This feature is sadly not implemented yet :(" if computer_player.codebreaker == true
+    puts "Would you like to play another game? (y/n)"
+    while (choice = gets.chomp)
+      case choice.downcase
+      when 'y'
+        start_game
+        break
+      when 'n'
+        exit
+      else
+        puts 'Please select either y or n'
+      end
+    end
   end
 end
+
 g = Game.new
 g.start_game
